@@ -13,6 +13,18 @@
       </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Duende.IdentityServer" Version="6.3.2" />
+      <PackageReference Include="Duende.IdentityServer.AspNetIdentity" Version="6.3.2" />
+      <PackageReference Include="Duende.IdentityServer.EntityFramework" Version="6.3.2" />
+      <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.18" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.18">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.8" />
+    </ItemGroup>
+
     <Target Name="CopyCustomContent" AfterTargets="AfterBuild">
         <ItemGroup>
             <_CustomFiles Include="./../.github/githooks/commit-msg" />
