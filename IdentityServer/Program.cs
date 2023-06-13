@@ -1,4 +1,5 @@
 using System.Reflection;
+using Duende.IdentityServer.EntityFramework.Options;
 using IdentityServer.Data;
 using IdentityServer.Factories;
 using IdentityServer.Models;
@@ -8,21 +9,41 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<ApplicationDbContext>(optionsAction: (serviceProvider, dbContextOptionsBuilder) =>
+builder.Services.AddDbContext<ApplicationDbContext>(optionsAction: (IServiceProvider serviceProvider, DbContextOptionsBuilder dbContextOptionsBuilder) =>
 {
     dbContextOptionsBuilder
         .UseNpgsql(
             serviceProvider.GetRequiredService<IConfiguration>().GetConnectionString(name: "Identity"), 
-            npgsqlOptionsAction: npgsqlDbContextOptionsBuilder => {
-                npgsqlDbContextOptionsBuilder.MigrationsAssembly(
-                    typeof(Program).GetTypeInfo().Assembly.GetName().Name);
-            });
+            npgsqlOptionsAction: NpgsqlOptionsAction);
 });
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddClaimsPrincipalFactory<ApplicationUserClaimsPrincipleFactory>()
     .AddDefaultTokenProviders()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddIdentityServer()
+    .AddAspNetIdentity<ApplicationUser>()
+    .AddConfigurationStore(configurationStoreOptions =>
+    {
+        configurationStoreOptions.ResolveDbContextOptions = ResolveDbContextOptions;
+    } )
+    .AddOperationalStore(operationalStoreOptions =>
+    {
+        operationalStoreOptions.ResolveDbContextOptions = ResolveDbContextOptions;
+    } );
+
 var app = builder.Build();
 
 app.Run();
+
+void NpgsqlOptionsAction(NpgsqlDbContextOptionsBuilder npgsqlDbContextOptionsBuilder)
+{
+    npgsqlDbContextOptionsBuilder.MigrationsAssembly(typeof(Program).GetTypeInfo().Assembly.GetName().Name);
+}
+
+void ResolveDbContextOptions(IServiceProvider serviceProvider, DbContextOptionsBuilder dbContextOptionsBuilder)
+{
+    dbContextOptionsBuilder.UseNpgsql(serviceProvider.GetRequiredService<IConfiguration>()
+        .GetConnectionString("IdentityServer"), npgsqlOptionsAction: NpgsqlOptionsAction);
+}
