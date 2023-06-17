@@ -11,7 +11,7 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
-      WORKING_DIR: ./InoversityLibrary
+      WORKING_DIR: ./IdentityServer
     defaults:
       run:
         working-directory: ${{env.WORKING_DIR}}
