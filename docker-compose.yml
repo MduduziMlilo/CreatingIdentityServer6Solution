@@ -22,6 +22,7 @@ services:
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/localhost.pfx
       - CONNECTIONSTRINGS__IDENTITY=Server=db;Port=5432;Database=Identity;User Id=postgres;Password=password;
       - CONNECTIONSTRINGS__IDENTITYSERVER=Server=db;Port=5432;Database=IdentityServer;User Id=postgres;Password=password;
+      - HOSTRESOLVER=localhost;
     ports:
       - "7000:7000"
     volumes:
