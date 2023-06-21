@@ -55,7 +55,7 @@ builder.Services.AddSwaggerGen(swaggerGenOptions =>
                 TokenUrl = new Uri($"{builder.Configuration["Authentication:Authority"]}/connect/token"),
                 Scopes =
                 {
-                    {"https:/www.example.com/api", "API"}
+                    {"https://www.example.com/api", "API"}
                 }
             }
         }
