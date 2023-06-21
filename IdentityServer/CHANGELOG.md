@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [versionize](https://github.com/versionize/versionize) for commit guidelines.
 
+<a name="0.1.0"></a>
+## [0.1.0](https://www.github.com/MduduziMlilo/CreatingIdentityServer6Solution/releases/tag/v0.1.0) (2023-6-21)
+
+### Features
+
+* **Api:** Add authenticated api (with a known cors issue). ([8f2162c](https://www.github.com/MduduziMlilo/CreatingIdentityServer6Solution/commit/8f2162c6fb0fb00696d74c58de79c3d3605d82dd))
+
+### Bug Fixes
+
+* Hardcode(cringe) docker network ip address. ([541f5f7](https://www.github.com/MduduziMlilo/CreatingIdentityServer6Solution/commit/541f5f7085253aae59552528d424a0e7183542c6))
+* **Api:** Fix incorrect scope. ([297e4a0](https://www.github.com/MduduziMlilo/CreatingIdentityServer6Solution/commit/297e4a08c6d6f293ed65de706edb64b5b62b4e58))
+
+### Other
+
+* Merge 297e4a08c6d6f293ed65de706edb64b5b62b4e58 into 4e409565709be156486c0b4a7e1cada58da1760d ([c17388b](https://www.github.com/MduduziMlilo/CreatingIdentityServer6Solution/commit/c17388ba861b3900eeb7b226439971583bb2622e))
+
 <a name="0.0.1"></a>
 ## [0.0.1](https://www.github.com/MduduziMlilo/CreatingIdentityServer6Solution/releases/tag/v0.0.1) (2023-6-17)
 
