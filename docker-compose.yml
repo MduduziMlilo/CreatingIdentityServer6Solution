@@ -6,7 +6,7 @@ services:
       dockerfile: ./Api/Dockerfile
     depends_on:
       - identityserver
-    entrypoint: /bin/sh -c "update-ca-certificates && dotnet Api.dll"
+#    entrypoint: /bin/sh -c "update-ca-certificates && dotnet Apis.dll"
     environment:
       - ASPMETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:7001
@@ -19,6 +19,7 @@ services:
     volumes:
       - ./localhost.pfx:/https/localhost.pfx:ro
       - ./localhost.crt:/usr/local/share/ca-certificates/localhost:ro
+      - api-keys:/root/.aspnet/DataProtection-Keys
   db:
     environment:
       - POSTGRES_PASSWORD=password
@@ -33,7 +34,7 @@ services:
       dockerfile: ./IdentityServer/Dockerfile
     depends_on: 
       - db
-    entrypoint: /bin/sh -c "update-ca-certificates && dotnet IdentityServer.dll"
+#    entrypoint: /bin/sh -c "update-ca-certificates && dotnets IdentityServers.dll"
     environment:
       - ASPMETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:7000
@@ -46,6 +47,9 @@ services:
     volumes:
       - ./localhost.pfx:/https/localhost.pfx:ro
       - ./localhost.crt:/usr/local/share/ca-certificates/localhost:ro
+      - identityserver-keys:/root/.aspnet/DataProtection-Keys
 volumes: 
   db:
+  identityserver-keys:
+  api-keys:
     

@@ -17,4 +17,5 @@ RUN dotnet publish "Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Api.dll"]
+RUN chmod +x /api_entrypoint.sh
+ENTRYPOINT ["/api_entrypoint.sh"]
