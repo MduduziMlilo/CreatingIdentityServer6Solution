@@ -3,16 +3,13 @@
 FROM mcr.microsoft.com/dotnet/sdk:6.0 as build-env
 WORKDIR /src
 
-# Set user permissions
-USER root
-
 # Restore packages.
-COPY Api/Api.csproj ./
-RUN dotnet restore Api.csproj;
+COPY **/*.csproj ./
+RUN find . -name "*.csproj" -type f -exec dotnet restore {} \;
 
 # Publish project artifacts.
-COPY Api/ ./
-RUN dotnet publish Api.csproj -c Release -o /src/publish;
+COPY . .
+RUN find . -name "*.csproj" -type f -exec dotnet publish {} -c Release -o /src/publish/$(dirname {}) \;
 
 # Build runtime image.
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 as runtime
@@ -22,4 +19,6 @@ WORKDIR /app
 COPY --from=build-env /src/publish ./
 
 # Execute command on container startup.
-ENTRYPOINT ["dotnet", "Api.dll"]
+ENTRYPOINT ["dotnet", "IdentityServer.dll"]
+
+

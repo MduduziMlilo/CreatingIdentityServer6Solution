@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.OpenApi.Models;
 
@@ -33,11 +32,11 @@ builder.Services.AddControllers();
 
 builder.Services.AddCors(corsOptions =>
 {
-    // corsOptions.AddPolicy(name: "ApiOrigin",
-    //     configurePolicy: policy =>
-    //     {
-    //         policy.WithOrigins("https://api:7001").AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
-    //     });
+    corsOptions.AddPolicy(name: "ApiOrigin",
+        configurePolicy: policy =>
+        {
+            policy.WithOrigins("https://api:7001").AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+        });
     corsOptions.AddDefaultPolicy(corsPolicyBuilder =>
     {
         corsPolicyBuilder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();

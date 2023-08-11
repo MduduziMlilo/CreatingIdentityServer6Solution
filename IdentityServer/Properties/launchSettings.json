@@ -12,9 +12,10 @@
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:7143;http://localhost:5071",
+      "applicationUrl": "https://identityserver.pymath.local:7000;http://identityserver.pymath.local:5000",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "https://+:7000"
       }
     },
     "IIS Express": {

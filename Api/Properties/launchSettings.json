@@ -14,9 +14,13 @@
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:7116;http://localhost:5156",
+      "applicationUrl": "https://api:7001;http://localhost:5001",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "https://+:7001",
+        "AUTHENTICATION__AUTHORITY":"https://identityserver:7000",
+        "AUTHENTICATION__AUDIENCE": "7738e499-dec2-48f0-b3ec-9d30d5fc38f4",
+        "ASPNETCORE_Kestrel__Certificates__Default__AllowInvalid": "true"
       }
     },
     "IIS Express": {

@@ -1,13 +1,12 @@
 using System.Reflection;
 using Duende.IdentityServer.EntityFramework.DbContexts;
 using Duende.IdentityServer.EntityFramework.Mappers;
-using Duende.IdentityServer.EntityFramework.Options;
 using Duende.IdentityServer.Models;
 using IdentityServer.Data;
 using IdentityServer.Factories;
 using IdentityServer.Models;
-using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure;
 using ApiResource = Duende.IdentityServer.Models.ApiResource;
@@ -15,10 +14,10 @@ using ApiScope = Duende.IdentityServer.Models.ApiScope;
 using Client = Duende.IdentityServer.Models.Client;
 using Secret = Duende.IdentityServer.Models.Secret;
 
+
 var builder = WebApplication.CreateBuilder(args: args);
 
-builder.Services.AddDataProtection()
-    .PersistKeysToFileSystem(new DirectoryInfo("/root/.aspnet/DataProtection-Keys"));
+builder.Services.AddDataProtection().PersistKeysToFileSystem(new DirectoryInfo("/root/.aspnet/DataProtection-Keys"));
 
 builder.Services.AddDbContext<ApplicationDbContext>(optionsAction: (IServiceProvider serviceProvider, DbContextOptionsBuilder dbContextOptionsBuilder) =>
 {
@@ -111,7 +110,7 @@ if (app.Environment.IsDevelopment())
         {
             new Client
             {
-                ClientId = Guid.NewGuid().ToString(),
+                ClientId = "7738e499-dec2-48f0-b3ec-9d30d5fc38f4",
                 ClientSecrets = new List<Secret>
                 {
                     { new(value: "secret".Sha512()) }
@@ -124,7 +123,7 @@ if (app.Environment.IsDevelopment())
                 },
                 AllowedCorsOrigins = new List<string>
                 {
-                    "https://api:7001"
+                    "https://api.pymath.local:7001"
                 }
             }.ToEntity(),
             new Client
@@ -143,7 +142,7 @@ if (app.Environment.IsDevelopment())
                 },
                 RedirectUris = new List<string>
                 {
-                    "https://webapplication:7002/signin-oidc"
+                    "https://webapplication.pymath.local:7002/signin-oidc"
                 },
                 PostLogoutRedirectUris = new List<string>
                 {
