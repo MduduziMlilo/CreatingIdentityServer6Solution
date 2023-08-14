@@ -1,13 +1,12 @@
 using System.Reflection;
 using Duende.IdentityServer.EntityFramework.DbContexts;
 using Duende.IdentityServer.EntityFramework.Mappers;
-using Duende.IdentityServer.EntityFramework.Options;
 using Duende.IdentityServer.Models;
 using IdentityServer.Data;
 using IdentityServer.Factories;
 using IdentityServer.Models;
-using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure;
 using ApiResource = Duende.IdentityServer.Models.ApiResource;
@@ -15,11 +14,19 @@ using ApiScope = Duende.IdentityServer.Models.ApiScope;
 using Client = Duende.IdentityServer.Models.Client;
 using Secret = Duende.IdentityServer.Models.Secret;
 
+
 var builder = WebApplication.CreateBuilder(args: args);
 
-builder.Services.AddDataProtection()
-    .PersistKeysToFileSystem(new DirectoryInfo("/root/.aspnet/DataProtection-Keys"));
-
+builder.Services.AddDataProtection().PersistKeysToFileSystem(new DirectoryInfo(@"/root/.aspnet/DataProtection-Keys"));
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(@"API", policy =>
+    {
+        policy.WithOrigins(@"https://localhost:7001")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
 builder.Services.AddDbContext<ApplicationDbContext>(optionsAction: (IServiceProvider serviceProvider, DbContextOptionsBuilder dbContextOptionsBuilder) =>
 {
     dbContextOptionsBuilder
@@ -51,6 +58,7 @@ var app = builder.Build();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+app.UseCors("API");
 app.UseIdentityServer();
 app.UseAuthorization();
 app.MapRazorPages();
@@ -82,7 +90,7 @@ if (app.Environment.IsDevelopment())
     {
         await configurationDbContext.ApiResources.AddAsync(entity: new ApiResource
         {
-            Name = Guid.NewGuid().ToString(),
+            Name = "0d6a9f62-a1df-4689-be0d-d03d0d859a04",
             DisplayName = "API",
             Scopes = new List<string>
             {
@@ -111,7 +119,7 @@ if (app.Environment.IsDevelopment())
         {
             new Client
             {
-                ClientId = Guid.NewGuid().ToString(),
+                ClientId = "7738e499-dec2-48f0-b3ec-9d30d5fc38f4",
                 ClientSecrets = new List<Secret>
                 {
                     { new(value: "secret".Sha512()) }
@@ -124,7 +132,7 @@ if (app.Environment.IsDevelopment())
                 },
                 AllowedCorsOrigins = new List<string>
                 {
-                    "https://api:7001"
+                    "https://localhost:7001"
                 }
             }.ToEntity(),
             new Client
@@ -143,7 +151,7 @@ if (app.Environment.IsDevelopment())
                 },
                 RedirectUris = new List<string>
                 {
-                    "https://webapplication:7002/signin-oidc"
+                    "https://webapplication.pymath.local:7002/signin-oidc"
                 },
                 PostLogoutRedirectUris = new List<string>
                 {
@@ -167,11 +175,11 @@ if (app.Environment.IsDevelopment())
                 },
                 RedirectUris = new List<string>
                 {
-                    "http://signlepageapplication:7003/authentication/login-callback"
+                    "http://singlepageapplication:7003/authentication/login-callback"
                 },
                 PostLogoutRedirectUris = new List<string>
                 {
-                    "http://signlepageapplication:7003/authentication/logout-callback"
+                    "http://singlepageapplication:7003/authentication/logout-callback"
                 }
             }.ToEntity()
         });
@@ -182,12 +190,10 @@ if (app.Environment.IsDevelopment())
 
     if (!await configurationDbContext.IdentityResources.AnyAsync())
     {
-        await configurationDbContext.IdentityResources.AddRangeAsync(entities: new[]
-        {
+        await configurationDbContext.IdentityResources.AddRangeAsync(
             new IdentityResources.OpenId().ToEntity(),
             new IdentityResources.Profile().ToEntity(),
-            new IdentityResources.Email().ToEntity()
-        });
+            new IdentityResources.Email().ToEntity());
         await configurationDbContext.SaveChangesAsync();
     }
 
