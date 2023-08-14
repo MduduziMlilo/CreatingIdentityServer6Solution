@@ -17,7 +17,9 @@ using Secret = Duende.IdentityServer.Models.Secret;
 
 var builder = WebApplication.CreateBuilder(args: args);
 
-builder.Services.AddDataProtection().PersistKeysToFileSystem(new DirectoryInfo(@"/root/.aspnet/DataProtection-Keys"));
+builder.Services.AddDataProtection()
+    .PersistKeysToFileSystem(new DirectoryInfo(@"./DataProtection-Keys"))
+    .UnprotectKeysWithAnyCertificate();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(@"API", policy =>
@@ -151,7 +153,7 @@ if (app.Environment.IsDevelopment())
                 },
                 RedirectUris = new List<string>
                 {
-                    "https://webapplication.pymath.local:7002/signin-oidc"
+                    "https://webapplication:7002/signin-oidc"
                 },
                 PostLogoutRedirectUris = new List<string>
                 {

@@ -6,7 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddDataProtection()
-    .PersistKeysToFileSystem(new DirectoryInfo("/root/.aspnet/DataProtection-Keys"));
+    .PersistKeysToFileSystem(new DirectoryInfo("./DataProtection-Keys"))
+    .UnprotectKeysWithAnyCertificate();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(jwtBearerOptions =>
