@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer", "IdentityS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{47A3404F-FA52-4B63-A7C4-A4DBE8C39399}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplication", "ConsoleApplication\ConsoleApplication.csproj", "{C067A10B-CD9B-409A-BD6F-1BABB6AF4F66}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{47A3404F-FA52-4B63-A7C4-A4DBE8C39399}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47A3404F-FA52-4B63-A7C4-A4DBE8C39399}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47A3404F-FA52-4B63-A7C4-A4DBE8C39399}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C067A10B-CD9B-409A-BD6F-1BABB6AF4F66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C067A10B-CD9B-409A-BD6F-1BABB6AF4F66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C067A10B-CD9B-409A-BD6F-1BABB6AF4F66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C067A10B-CD9B-409A-BD6F-1BABB6AF4F66}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
