@@ -139,7 +139,7 @@ if (app.Environment.IsDevelopment())
             }.ToEntity(),
             new Client
             {
-                ClientId = Guid.NewGuid().ToString(),
+                ClientId = "2d0a8f24-1250-4385-bdcb-1a94fa116b1e",
                 ClientSecrets = new List<Secret>
                 {
                     { new(value: "secret".Sha512()) }
@@ -153,11 +153,11 @@ if (app.Environment.IsDevelopment())
                 },
                 RedirectUris = new List<string>
                 {
-                    "https://webapplication:7002/signin-oidc"
+                    "https://localhost:7002/signin-oidc"
                 },
                 PostLogoutRedirectUris = new List<string>
                 {
-                    "https://webapplication:7002/signout-callback-oidc"
+                    "https://localhost:7002/signout-callback-oidc"
                 }
             }.ToEntity(),
             new Client

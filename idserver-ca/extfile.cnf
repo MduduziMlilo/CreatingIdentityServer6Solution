@@ -1,0 +1,2 @@
+subjectAltName=DNS:identityserver,DNS:api,DNS:zorn,DNS:localhost,IP:127.0.0.1
+extendedKeyUsage = serverAuth
