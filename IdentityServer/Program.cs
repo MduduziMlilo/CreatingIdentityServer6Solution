@@ -168,7 +168,7 @@ if (app.Environment.IsDevelopment())
                 AllowedGrantTypes = GrantTypes.Code,
                 AllowedCorsOrigins = new List<string>
                 {
-                    "https://singlepageapplication:7003"
+                    "https://localhost:7003"
                 },
                 AllowedScopes = new List<string>
                 {
@@ -177,11 +177,11 @@ if (app.Environment.IsDevelopment())
                 },
                 RedirectUris = new List<string>
                 {
-                    "http://singlepageapplication:7003/authentication/login-callback"
+                    "http://localhost:7003/authentication/login-callback"
                 },
                 PostLogoutRedirectUris = new List<string>
                 {
-                    "http://singlepageapplication:7003/authentication/logout-callback"
+                    "http://localhost:7003/authentication/logout-callback"
                 }
             }.ToEntity()
         });
